@@ -2,11 +2,19 @@ version: 2
 
 models:
   - name: silver_patients
-    description: "Cleaned patient data"
+    description: "Cleaned and deduplicated patient data"
 
     columns:
       - name: patient_id
-        description: "Unique identifier for each patient"
+        description: "Unique patient identifier"
         data_tests:
           - not_null
           - unique
+
+      - name: gender
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['MALE', 'FEMALE', 'UNKNOWN']
+              config:
+                where: "gender IS NOT NULL"
