@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: healthcare
+    database: belajar-gcp-513609
+    schema: raw
+    tables:
+      - name: patients
+      - name: hospitals
+      - name: doctors
+      - name: visits
+      - name: diagnoses
+      - name: treatments
+      - name: payments
+      - name: lab_results
