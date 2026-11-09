@@ -1,0 +1,55 @@
+
+version: 2
+
+models:
+  - name: silver_visits
+    description: "Cleaned and standardized patient visit records"
+
+    columns:
+      - name: visit_id
+        description: "Unique identifier for each visit"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: patient_id
+        description: "Reference to the patient"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_patients')
+                field: patient_id
+
+      - name: hospital_id
+        description: "Reference to the hospital"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_hospitals')
+                field: hospital_id
+
+      - name: doctor_id
+        description: "Reference to the doctor"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_doctors')
+                field: doctor_id
+
+      - name: visit_datetime
+        description: "Date and time of the visit"
+
+      - name: visit_type
+        description: "Type of patient visit"
+
+      - name: status
+        description: "Visit status"
+
+      - name: chief_complaint
+        description: "Chief complaint timestamp as defined in the source schema"
+
+      - name: created_at
+        description: "Record creation timestamp"

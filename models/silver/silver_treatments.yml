@@ -1,0 +1,43 @@
+
+version: 2
+
+models:
+  - name: silver_treatments
+    description: "Cleaned and standardized treatment records"
+
+    columns:
+      - name: treatment_id
+        description: "Unique identifier for each treatment"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: visit_id
+        description: "Reference to the patient visit"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_visits')
+                field: visit_id
+
+      - name: treatment_code
+        description: "Treatment code"
+
+      - name: treatment_name
+        description: "Name of the treatment"
+
+      - name: category
+        description: "Treatment category"
+
+      - name: quantity
+        description: "Quantity of treatment performed"
+
+      - name: unit_price
+        description: "Price per treatment unit"
+
+      - name: total_price
+        description: "Total treatment price"
+
+      - name: performed_at
+        description: "Timestamp when treatment was performed"

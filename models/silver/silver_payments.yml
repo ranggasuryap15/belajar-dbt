@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: silver_payments
+    description: "Cleaned and standardized payment records"
+
+    columns:
+      - name: payment_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: visit_id
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_visits')
+                field: visit_id
+
+      - name: payment_datetime
+        description: "Date and time of payment"
+
+      - name: amount
+        description: "Payment amount"
+        data_tests:
+          - not_null
+
+      - name: payment_method
+        description: "Payment method"
+
+      - name: payment_status
+        description: "Payment status"

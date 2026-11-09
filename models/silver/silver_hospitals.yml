@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: silver_hospitals
+    description: "Cleaned hospital data"
+
+    columns:
+      - name: hospital_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: bed_capacity
+        data_tests:
+          - not_null

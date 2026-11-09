@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: silver_doctors
+    columns:
+      - name: doctor_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: hospital_id
+        data_tests:
+          - not_null

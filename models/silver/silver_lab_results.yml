@@ -1,0 +1,46 @@
+
+version: 2
+
+models:
+  - name: silver_lab_results
+    description: "Cleaned and standardized laboratory test results"
+
+    columns:
+      - name: lab_result_id
+        description: "Unique identifier for each laboratory result"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: visit_id
+        description: "Reference to the patient visit"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('silver_visits')
+                field: visit_id
+
+      - name: test_code
+        description: "Laboratory test code"
+
+      - name: test_name
+        description: "Name of the laboratory test"
+
+      - name: result_value
+        description: "Measured laboratory result"
+
+      - name: unit
+        description: "Unit of measurement"
+
+      - name: reference_min
+        description: "Minimum reference value"
+
+      - name: reference_max
+        description: "Maximum reference value"
+
+      - name: result_status
+        description: "Laboratory result status"
+
+      - name: result_datetime
+        description: "Timestamp when the laboratory test was performed"
