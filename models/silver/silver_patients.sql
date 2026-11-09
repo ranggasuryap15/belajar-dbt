@@ -22,10 +22,10 @@ deduplicated AS (
 
 cleaned AS (
     SELECT
-        patient_id,
+        TRIM(patient_id) AS patient_id,
 
-        NULLIF(TRIM(first_name), '') AS first_name,
-        NULLIF(TRIM(last_name), '') AS last_name,
+        INITCAP(NULLIF(TRIM(first_name), '')) AS first_name,
+        INITCAP(NULLIF(TRIM(last_name), '')) AS last_name,
 
         CASE
             WHEN UPPER(TRIM(gender)) IN ('M', 'MALE')
@@ -37,15 +37,27 @@ cleaned AS (
             ELSE 'UNKNOWN'
         END AS gender,
 
-        INITCAP(TRIM(city)) AS city,
+        CASE
+            WHEN date_of_birth IS NULL
+                THEN NULL
+            WHEN date_of_birth > CURRENT_DATE()
+                THEN NULL
+            WHEN DATE_DIFF(
+                CURRENT_DATE(),
+                date_of_birth,
+                YEAR
+            ) > 120
+                THEN NULL
+            ELSE date_of_birth
+        END AS date_of_birth,
 
-        NULLIF(TRIM(email), '') AS email,
+        INITCAP(NULLIF(TRIM(city), '')) AS city,
 
+        LOWER(NULLIF(TRIM(email), '')) AS email,
         NULLIF(TRIM(phone), '') AS phone,
 
         created_at,
-        updated_at,
-        date_of_birth
+        updated_at
 
     FROM deduplicated
 )
