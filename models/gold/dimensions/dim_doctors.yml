@@ -1,0 +1,31 @@
+
+version: 2
+
+models:
+  - name: dim_doctors
+    description: "Doctor dimension for healthcare analytics"
+
+    columns:
+      - name: doctor_id
+        description: "Unique doctor identifier"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: hospital_id
+        description: "Hospital associated with the doctor"
+
+      - name: doctor_name
+        description: "Doctor full name"
+
+      - name: specialty
+        description: "Medical specialty"
+
+      - name: gender
+        description: "Doctor gender"
+
+      - name: years_experience
+        description: "Years of professional experience"
+
+      - name: is_active
+        description: "Indicates whether the doctor is active"

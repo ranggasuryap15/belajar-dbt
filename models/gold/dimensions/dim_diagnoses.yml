@@ -1,0 +1,25 @@
+
+version: 2
+
+models:
+  - name: dim_diagnoses
+    description: "Diagnosis dimension for healthcare analytics"
+
+    columns:
+      - name: diagnosis_id
+        description: "Unique diagnosis record identifier"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: diagnosis_code
+        description: "Diagnosis code"
+
+      - name: diagnosis_name
+        description: "Diagnosis name"
+
+      - name: icd10_code
+        description: "ICD-10 classification code"
+
+      - name: is_primary
+        description: "Indicates whether the diagnosis is primary"

@@ -1,0 +1,28 @@
+
+version: 2
+
+models:
+  - name: dim_hospitals
+    description: "Hospital dimension for healthcare analytics"
+
+    columns:
+      - name: hospital_id
+        description: "Unique hospital identifier"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: hospital_name
+        description: "Hospital name"
+
+      - name: city
+        description: "Hospital city"
+
+      - name: hospital_type
+        description: "Hospital classification"
+
+      - name: bed_capacity
+        description: "Total hospital bed capacity"
+
+      - name: is_active
+        description: "Indicates whether the hospital is active"
