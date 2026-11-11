@@ -1,0 +1,3 @@
+{
+    "dbt.dbtPythonPathOverride": "/home/satugenerus/data-engineering/belajar-dbt/.venv/bin/python"
+}

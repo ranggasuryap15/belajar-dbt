@@ -1,0 +1,37 @@
+
+version: 2
+
+models:
+  - name: fact_visits
+    description: "Fact table representing one row per patient visit"
+
+    columns:
+      - name: visit_id
+        description: "Natural key identifying each visit"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: patient_key
+        description: "Foreign key to patient dimension"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_patients')
+                field: patient_key
+
+      - name: doctor_key
+        description: "Foreign key to doctor dimension"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_doctors')
+                field: doctor_key
+
+      - name: hospital_key
+        description: "Foreign key to hospital dimension"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_hospitals')
+                field: hospital_key

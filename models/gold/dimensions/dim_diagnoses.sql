@@ -1,5 +1,5 @@
-
 SELECT
+    {{ dbt_utils.generate_surrogate_key(['diagnosis_id']) }} AS diagnosis_key,
     diagnosis_id,
     diagnosis_code,
     diagnosis_name,
