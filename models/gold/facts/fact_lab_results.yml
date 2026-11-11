@@ -1,0 +1,70 @@
+
+version: 2
+
+models:
+  - name: fact_lab_results
+    description: "Fact table representing one row per laboratory result"
+
+    columns:
+      - name: lab_result_id
+        description: "Unique laboratory result identifier"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: visit_id
+        description: "Reference to patient visit"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fact_visits')
+                field: visit_id
+
+      - name: patient_key
+        description: "Patient dimension key"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_patients')
+                field: patient_key
+
+      - name: doctor_key
+        description: "Doctor dimension key"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_doctors')
+                field: doctor_key
+
+      - name: hospital_key
+        description: "Hospital dimension key"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_hospitals')
+                field: hospital_key
+
+      - name: test_code
+        description: "Laboratory test code"
+
+      - name: test_name
+        description: "Laboratory test name"
+
+      - name: result_value
+        description: "Measured laboratory result"
+
+      - name: reference_min
+        description: "Minimum reference value"
+
+      - name: reference_max
+        description: "Maximum reference value"
+
+      - name: result_status
+        description: "Laboratory result status"
+
+      - name: result_datetime
+        description: "Laboratory test timestamp"
+
+      - name: lab_test_count
+        description: "Laboratory test count"

@@ -1,0 +1,64 @@
+
+version: 2
+
+models:
+  - name: fact_treatments
+    description: "Fact table representing one row per medical treatment"
+
+    columns:
+      - name: treatment_id
+        description: "Unique treatment identifier"
+        data_tests:
+          - not_null
+          - unique
+
+      - name: visit_id
+        description: "Reference to patient visit"
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('fact_visits')
+                field: visit_id
+
+      - name: patient_key
+        description: "Patient dimension key"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_patients')
+                field: patient_key
+
+      - name: doctor_key
+        description: "Doctor dimension key"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_doctors')
+                field: doctor_key
+
+      - name: hospital_key
+        description: "Hospital dimension key"
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_hospitals')
+                field: hospital_key
+
+      - name: treatment_name
+        description: "Name of medical treatment"
+
+      - name: category
+        description: "Treatment category"
+
+      - name: quantity
+        description: "Treatment quantity"
+
+      - name: unit_price
+        description: "Price per treatment unit"
+
+      - name: total_price
+        description: "Total treatment price"
+
+      - name: treatment_count
+        description: "Treatment transaction count"
