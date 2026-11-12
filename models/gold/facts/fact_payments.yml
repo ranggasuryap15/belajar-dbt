@@ -50,3 +50,10 @@ models:
 
       - name: payment_count
         description: "Payment transaction count"
+        
+      - name: payment_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key

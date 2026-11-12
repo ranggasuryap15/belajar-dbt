@@ -62,3 +62,10 @@ models:
 
       - name: treatment_count
         description: "Treatment transaction count"
+        
+      - name: treatment_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key

@@ -1,7 +1,5 @@
-
 WITH treatments AS (
-    SELECT *
-    FROM {{ ref('silver_treatments') }}
+    SELECT * FROM {{ ref('silver_treatments') }}
 ),
 
 final AS (
@@ -13,6 +11,7 @@ final AS (
         v.patient_key,
         v.doctor_key,
         v.hospital_key,
+        dt.date_key AS treatment_date_key,
 
         -- Treatment attributes
         t.treatment_code,
@@ -30,7 +29,9 @@ final AS (
 
     LEFT JOIN {{ ref('fact_visits') }} v
         ON t.visit_id = v.visit_id
+
+    LEFT JOIN {{ ref('dim_date') }} dt
+        ON DATE(t.performed_at) = dt.full_date
 )
 
-SELECT *
-FROM final
+SELECT * FROM final

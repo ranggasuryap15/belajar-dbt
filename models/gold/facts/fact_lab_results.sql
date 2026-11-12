@@ -1,7 +1,5 @@
-
 WITH lab_results AS (
-    SELECT *
-    FROM {{ ref('silver_lab_results') }}
+    SELECT * FROM {{ ref('silver_lab_results') }}
 ),
 
 final AS (
@@ -13,8 +11,9 @@ final AS (
         v.patient_key,
         v.doctor_key,
         v.hospital_key,
+        dt.date_key AS result_date_key,
 
-        -- Laboratory attributes
+        -- Lab attributes
         l.test_code,
         l.test_name,
         l.result_status,
@@ -30,7 +29,9 @@ final AS (
 
     LEFT JOIN {{ ref('fact_visits') }} v
         ON l.visit_id = v.visit_id
+
+    LEFT JOIN {{ ref('dim_date') }} dt
+        ON DATE(l.result_datetime) = dt.full_date
 )
 
-SELECT *
-FROM final
+SELECT * FROM final
