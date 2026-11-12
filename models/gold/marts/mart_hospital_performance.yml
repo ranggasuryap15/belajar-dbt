@@ -1,0 +1,45 @@
+version: 2
+
+models:
+  - name: mart_hospital_performance
+    description: "Monthly aggregated performance metrics per hospital, including visits, revenue, and treatments."
+    columns:
+      - name: mart_hospital_performance_key
+        description: "Surrogate key composed of hospital_key, year, and month."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: hospital_key
+        description: "Foreign key to dim_hospitals."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_hospitals')
+                field: hospital_key
+
+      - name: year
+        description: "Calendar year of the performance metrics."
+        data_tests:
+          - not_null
+
+      - name: month
+        description: "Calendar month (1-12) of the performance metrics."
+        data_tests:
+          - not_null
+
+      - name: total_visits
+        description: "Total number of patient visits for the hospital in this month."
+        data_tests:
+          - not_null
+
+      - name: total_revenue
+        description: "Total revenue received by the hospital in this month."
+        data_tests:
+          - not_null
+
+      - name: total_treatments
+        description: "Total medical treatments conducted in this month."
+        data_tests:
+          - not_null

@@ -11,6 +11,7 @@ final AS (
         p.patient_key,
         d.doctor_key,
         h.hospital_key,
+        dt.date_key AS visit_date_key,
 
         -- Visit attributes
         v.visit_datetime,
@@ -31,6 +32,9 @@ final AS (
 
     LEFT JOIN {{ ref('dim_hospitals') }} h
         ON v.hospital_id = h.hospital_id
+
+    LEFT JOIN {{ ref('dim_date') }} dt
+        ON DATE(v.visit_datetime) = dt.full_date
 )
 
 SELECT *
