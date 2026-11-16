@@ -47,15 +47,24 @@ monthly_labs AS (
 )
 
 SELECT
+    {{ dbt_utils.generate_surrogate_key([
+        'mv.doctor_key',
+        'mv.year',
+        'mv.month'
+    ]) }} AS mart_doctor_performance_key,
     mv.doctor_key,
+    doc.doctor_name,
+    doc.specialty,
     mv.year,
     mv.month,
     mv.month_name,
     mv.total_visits,
     COALESCE(mt.total_treatments, 0) AS total_treatments,
     COALESCE(mt.total_treatment_revenue, 0) AS total_treatment_revenue,
-    COALESCE(ml.total_lab_tests, 0) AS total_lab_tests
+    COALESCE(ml.total_lab_tests, 0) AS total_lab_tests    
 FROM monthly_visits mv
+JOIN {{ ref('dim_doctors') }} doc
+    ON mv.doctor_key = doc.doctor_key
 LEFT JOIN monthly_treatments mt
     ON mv.doctor_key = mt.doctor_key
     AND mv.year = mt.year
