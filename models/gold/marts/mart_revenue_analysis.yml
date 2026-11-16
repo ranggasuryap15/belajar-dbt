@@ -1,0 +1,50 @@
+version: 2
+
+models:
+  - name: mart_revenue_analysis
+    description: "Aggregated monthly revenue metrics sliced by hospital, payment method, and payment status."
+    columns:
+      - name: mart_revenue_analysis_key
+        description: "Surrogate key composed of hospital_key, year, month, payment_method, and payment_status."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: hospital_key
+        description: "Foreign key to dim_hospitals."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_hospitals')
+                field: hospital_key
+
+      - name: year
+        description: "Calendar year of the payments."
+        data_tests:
+          - not_null
+
+      - name: month
+        description: "Calendar month (1-12) of the payments."
+        data_tests:
+          - not_null
+
+      - name: payment_method
+        description: "Payment method used (e.g., Cash, Insurance, Credit Card)."
+        data_tests:
+          - not_null
+
+      - name: payment_status
+        description: "Status of the payment (e.g., Completed, Pending, Failed)."
+        data_tests:
+          - not_null
+
+      - name: total_transactions
+        description: "Total count of payment transactions for this slice."
+        data_tests:
+          - not_null
+
+      - name: total_amount
+        description: "Total revenue amount for this slice."
+        data_tests:
+          - not_null
