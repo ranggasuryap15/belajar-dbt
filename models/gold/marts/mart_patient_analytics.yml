@@ -1,0 +1,70 @@
+version: 2
+
+models:
+  - name: mart_patient_analytics
+    description: "Patient-level analytics mart with demographic attributes, age groups, visit activity, and visit history."
+
+    columns:
+      - name: patient_key
+        description: "Surrogate key identifying the patient."
+        data_tests:
+          - unique
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_patients')
+                field: patient_key
+
+      - name: patient_id
+        description: "Natural key identifying the patient."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: first_name
+        description: "Patient first name."
+
+      - name: last_name
+        description: "Patient last name."
+
+      - name: gender
+        description: "Standardized patient gender."
+
+      - name: date_of_birth
+        description: "Patient date of birth."
+
+      - name: city
+        description: "Patient city."
+
+      - name: age
+        description: "Patient age calculated from date_of_birth."
+
+      - name: age_group
+        description: "Patient age category."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - "UNDER_18"
+                  - "18_35"
+                  - "36_50"
+                  - "51_65"
+                  - "OVER_65"
+                  - "UNKNOWN"
+
+      - name: total_visits
+        description: "Total number of visits recorded for the patient."
+        data_tests:
+          - not_null
+
+      - name: first_visit_datetime
+        description: "Datetime of the patient's first recorded visit."
+
+      - name: last_visit_datetime
+        description: "Datetime of the patient's most recent recorded visit."
+
+      - name: is_active
+        description: "Indicates whether the patient has at least one recorded visit."
+        data_tests:
+          - not_null
