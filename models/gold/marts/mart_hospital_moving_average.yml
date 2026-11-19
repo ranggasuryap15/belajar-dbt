@@ -1,0 +1,52 @@
+version: 2
+
+models:
+  - name: mart_hospital_moving_average
+    description: "Hospital monthly visit metrics with a three-month moving average."
+
+    columns:
+      - name: hospital_moving_average_key
+        description: "Surrogate key composed of hospital_key, year, and month."
+        data_tests:
+          - unique
+          - not_null
+
+      - name: hospital_key
+        description: "Foreign key to dim_hospitals."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_hospitals')
+                field: hospital_key
+
+      - name: hospital_name
+        description: "Hospital name."
+
+      - name: city
+        description: "Hospital city."
+
+      - name: year
+        description: "Calendar year."
+        data_tests:
+          - not_null
+
+      - name: month
+        description: "Calendar month."
+        data_tests:
+          - not_null
+
+      - name: month_name
+        description: "Calendar month name."
+        data_tests:
+          - not_null
+
+      - name: total_visits
+        description: "Total visits for the hospital in the month."
+        data_tests:
+          - not_null
+
+      - name: moving_average_3_months
+        description: "Average visits for the current month and the previous two available rows."
+        data_tests:
+          - not_nulldbt parse
