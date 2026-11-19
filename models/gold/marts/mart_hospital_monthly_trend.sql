@@ -107,7 +107,12 @@ with_window_metrics AS (
             PARTITION BY hospital_key
             ORDER BY year, month
             ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
-        ) AS moving_average_3_months
+        ) AS moving_average_3_months,
+
+        LAG(total_visits, 1) OVER (
+            PARTITION BY hospital_key, month
+            ORDER BY year
+        ) AS previous_year_visits
 
     FROM filled_months
 
@@ -129,6 +134,7 @@ final AS (
         total_visits,
         previous_month_visits,
         moving_average_3_months,
+        previous_year_visits,
 
         total_visits - previous_month_visits AS visit_change,
 
@@ -152,6 +158,7 @@ SELECT
     f.total_visits,
     f.previous_month_visits,
     f.moving_average_3_months,
+    f.previous_year_visits,
     f.visit_change,
     f.visit_change_percentage
 

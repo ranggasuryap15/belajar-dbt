@@ -49,4 +49,4 @@ models:
       - name: moving_average_3_months
         description: "Average visits for the current month and the previous two available rows."
         data_tests:
-          - not_nulldbt parse
+          - not_null
